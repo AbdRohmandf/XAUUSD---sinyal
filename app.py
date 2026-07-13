@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import yfinance as yf
 import datetime
-
+import os
 app = Flask(__name__)
 
 data_sinyal = [] # buat nyimpen riwayat

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ANALIS XAUUSD PRO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {font-family: Arial; text-align: center; background: #0a0a0a; color: white; padding: 20px;}
+        .card {background: #1a1a1a; padding: 20px; border-radius: 15px; margin: 10px auto; max-width: 500px;}
+        .harga {font-size: 32px; font-weight: bold; color: #FFD700;}
+        .buy {color: #00FF00; font-size: 20px; font-weight: bold;}
+        .sell {color: #FF0000; font-size: 20px; font-weight: bold;}
+        .btn {background: #0066ff; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 18px; margin: 10px; cursor: pointer; width: 90%;}
+        table {width: 100%; margin-top: 10px; border-collapse: collapse;}
+        th, td {padding: 10px; border-bottom: 1px solid #333; font-size: 14px;}
+        th {color: #FFD700;}
+    </style>
+    <meta http-equiv="refresh" content="10">
+</head>
+<body>
+    <h1>ANALIS XAUUSD PRO SUDAH ONLINE!</h1>
+    
+    <div class="card">
+        <p>Harga Live: <span class="harga">{{ harga }}</span></p>
+        <p>Sinyal: <span class="{{ sinyal.lower() }}">{{ sinyal }}</span></p>
+        <p>TP: {{ tp }} | SL: {{ sl }}</p>
+        <p>Update Terakhir: {{ waktu }}</p>
+    </div>
+
+    <div class="card">
+        <div class="tradingview-widget-container"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        new TradingView.widget({"symbol": "OANDA:XAUUSD","interval": "1","theme": "dark", "width": "100%"});
+        </script>
+    </div>
+
+    <button class="btn">CEK SINYAL XAUUSD</button>
+
+    <div class="card">
+        <h2>RIWAYAT SINYAL 5 TERAKHIR</h2>
+        {% if data_sinyal %}
+        <table>
+            <tr><th>Waktu</th><th>Harga</th><th>Hasil</th></tr>
+            {% for item in data_sinyal[::-1] %}
+            <tr>
+                <td>{{ item.waktu }}</td>
+                <td>{{ item.harga }}</td>
+                <td class="{{ item.hasil.lower() }}">{{ item.hasil }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>Belum ada sinyal</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
